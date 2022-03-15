@@ -1,0 +1,33 @@
+name: C/C++ CI
+
+on:
+  schedule:
+    - cron: '0 1 */2 * *'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: update apt
+      run: sudo apt-get update
+    - name: install deps
+      run: sudo apt-get install gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64 git build-essential autoconf autoconf2.13 automake1.11 libtool
+    - name: apply patch
+      run: cd file && git apply ../filep.patch
+    - name: run build script
+      run: ./build.sh
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          ./dist/magic.mgc
+          ./dist/file.exe
+          ./dist/libmagic-1.dll
+          ./dist/libgnurx-0.dll
+          ./dist/COPYING.file
+          ./dist/COPYING.libgnurx
