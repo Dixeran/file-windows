@@ -22,13 +22,12 @@ jobs:
       run: cd file && git apply ../filep.patch
     - name: run build script
       run: ./build.sh
-    - name: Tag
+    - name: generate tag
+      id: tag
       run: |
-        git tag "v$env:GitVersion_SemVer"
-        git push origin "v$env:GitVersion_SemVer"
+        echo "::set-output name=release_tag::UserBuild_$(date +"%Y.%m.%d_%H-%M")"
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        name: v${{ env.GitVersion_SemVer }}
-        prerelease: ${{ env.GitVersion_PreReleaseLabel != '' }}
+        tag_name: ${{ steps.tag.outputs.release_tag }}
         files: ./dist/*
