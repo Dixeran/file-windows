@@ -22,13 +22,13 @@ jobs:
       run: cd file && git apply ../filep.patch
     - name: run build script
       run: ./build.sh
+    - name: Tag
+      run: |
+        git tag "v$env:GitVersion_SemVer"
+        git push origin "v$env:GitVersion_SemVer"
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        files: |
-          ./dist/magic.mgc
-          ./dist/file.exe
-          ./dist/libmagic-1.dll
-          ./dist/libgnurx-0.dll
-          ./dist/COPYING.file
-          ./dist/COPYING.libgnurx
+        name: v${{ env.GitVersion_SemVer }}
+        prerelease: ${{ env.GitVersion_PreReleaseLabel != '' }}
+        files: ./dist/*
