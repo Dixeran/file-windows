@@ -16,7 +16,6 @@ cp libgnurx-0.dll ../dist/
 cd ../file/
 
 # first, compile natively, to generate a excutable for crosscompile
-make clean
 ./configure --prefix=/tmp
 make -j4
 make install
