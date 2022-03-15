@@ -1,0 +1,14 @@
+diff --git a/src/funcs.c b/src/funcs.c
+index dcfd352d..affa3f2b 100644
+--- a/src/funcs.c
++++ b/src/funcs.c
+@@ -51,6 +51,9 @@ FILE_RCSID("@(#)$File: funcs.c,v 1.125 2022/02/14 16:26:10 christos Exp $")
+ #define SIZE_MAX	((size_t)~0)
+ #endif
+ 
++#include <fcntl.h>
++#define pipe(fds) _pipe(fds,1024, _O_BINARY)
++
+ protected char *
+ file_copystr(char *buf, size_t blen, size_t width, const char *str)
+ {
