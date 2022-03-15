@@ -16,13 +16,13 @@ cp libgnurx-0.dll ../dist/
 cd ../file/
 
 # first, compile natively, to generate a excutable for crosscompile
+autoreconf -f -i
 ./configure --prefix=/tmp
 make -j4
 make install
 make clean
 
 # do cross compile
-autoreconf -f -i
 ./configure --disable-silent-rules --enable-fsect-man5
 make -j4
 cp magic/magic.mgc ../dist/
