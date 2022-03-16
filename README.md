@@ -7,7 +7,7 @@ Binaries are available on the Releases page for convenience, but if you need thi
 Prerequisites
 -------
 
-I have tested this on Bash for Windows (LXSS) under Windows 10 build 14393.  Since this is based on Ubuntu 14.04, I suspect this build will work in similar Ubuntu environments.  
+I have tested this on Bash for Windows (LXSS) under Windows 10 build ~14393~ 19044.1586.  Since this is based on Ubuntu ~14.04~ 18.04, I suspect this build will work in similar Ubuntu environments. The original `file` package have been updated to the latest master. If you need a release build, try to build it yourself by checkout the file repo to a release tag.
 
 You will need to install some packages before building:
 
@@ -16,11 +16,7 @@ You will need to install some packages before building:
 
 How to Build
 -------
-
-    git clone https://github.com/nscaife/file-windows.git
-    cd file-windows
-    git submodule init && git submodule update
-    ./build.sh
+There is a github action for building it nightly, checkout the workflow config for building it yourself.
 
 The build process throws tons of warnings and errors since the Ubuntu environment cannot directly execute `file.exe` after building it.  Furthermore, `file` is built twice -- once to compile `magic.mgc` to avoid needing a Windows build step and second for the actual Windows build. I'd like to get rid of these errors (please submit pull requests!), but for now, the build is successful if the `dist/` directory contains the following four files:
 
